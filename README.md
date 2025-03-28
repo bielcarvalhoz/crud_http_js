@@ -28,7 +28,6 @@ Memoteca é um aplicativo organizador de pensamentos e frases que permite cadast
 
 `CSS`: Utilizado para estilização da interface do aplicativo.
 
-
 ## 📁 Link do Figma
 
 Você pode [acessar o figma do projeto aqui](https://www.figma.com/design/Sz1gmmemxqcB3amInL4Ndp/Rebrand-Memoteca-%7C-Curso-CRUD?node-id=148-26&t=FpdmfbiM1i1s6REQ-0).
