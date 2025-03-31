@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   ui.renderizarPensamentos();
 
   const formularioPensamento = document.getElementById("pensamento-form");
+  const botaoCancelar = document.getElementById("botao-cancelar");
   formularioPensamento.addEventListener("submit", manipularSubmissaoFormulario);
+  botaoCancelar.addEventListener("click", ui.limparFormulario);
 });
 
 async function manipularSubmissaoFormulario(event) {
