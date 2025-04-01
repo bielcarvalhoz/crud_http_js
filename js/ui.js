@@ -15,11 +15,15 @@ const ui = {
 
     try {
       const pensamentos = await api.buscarPensamentos();
-      console.log(pensamentos);
       pensamentos.forEach(ui.adicionarPensamentoNaLista);
-    } catch (error) {
-      alert(`Erro ao renderizar pensamentos: ${error}`);
-      throw error;
+      if (pensamentos.length === 0) {
+        mensagemVazia.style.display = "block";
+      } else {
+        mensagemVazia.style.display = "none";
+        pensamentos.forEach(ui.adicionarPensamentoNaLista);
+      }
+    } catch {
+      alert("Erro ao renderizar pensamentos");
     }
   },
 

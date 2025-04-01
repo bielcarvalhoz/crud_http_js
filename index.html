@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CRUD de Pensamentos</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script type="module" defer src="js/main.js"></script>
   </head>
   <body>
@@ -46,6 +47,10 @@
       <span></span>
       <section id="lista-pensamentos-container">
         <h3>Meu Mural</h3>
+        <div id="mensagem-vazia" class="mensagem-vazia">
+          <img src="assets/imagens/lista-vazia.png" alt="Nenhum pensamento disponível" />
+          <p>Nada por aqui ainda, que tal compartilhar alguma ideia?</p>
+        </div>
         <ul id="lista-pensamentos"></ul>
       </section>
     </main>
