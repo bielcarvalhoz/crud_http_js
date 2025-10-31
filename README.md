@@ -1,4 +1,3 @@
-![Thumbnail](./thumb.png)
 
 # Memoteca
 
