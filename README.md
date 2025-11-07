@@ -1,7 +1,25 @@
-
 # Memoteca
 
 Memoteca é um aplicativo organizador de pensamentos e frases que permite cadastrar, listar, editar e deletar pensamentos, incluindo informações como conteúdo e autoria.
+
+## 🎓 Trabalho Acadêmico - Clean Code
+
+Este repositório é parte de um trabalho da faculdade focado em **Clean Code** e **Testes Unitários**.
+
+### 📋 Objetivo do Trabalho
+
+1. Criar testes unitários ANTES da refatoração ✅
+2. Refatorar o código aplicando Clean Code 🔄
+3. Executar os mesmos testes DEPOIS da refatoração ⏭️
+4. Comprovar que o comportamento permanece o mesmo ⏭️
+
+### 🧪 Status dos Testes
+
+- ✅ **18 testes criados e passando**
+- ✅ **97.84% de cobertura de código**
+- ✅ **Pronto para refatoração**
+
+Para detalhes completos sobre os testes, veja [GUIA-TESTES.md](GUIA-TESTES.md)
 
 ## 🔨 Funcionalidades do projeto
 
@@ -27,12 +45,13 @@ Memoteca é um aplicativo organizador de pensamentos e frases que permite cadast
 
 `CSS`: Utilizado para estilização da interface do aplicativo.
 
-
 ## 📁 Link do Figma
 
 Você pode [acessar o figma do projeto aqui](https://www.figma.com/design/Sz1gmmemxqcB3amInL4Ndp/Rebrand-Memoteca-%7C-Curso-CRUD?node-id=148-26&t=FpdmfbiM1i1s6REQ-0).
 
 ## 🛠️ Abrir e rodar o projeto
+
+### Backend (API)
 
 Para executar a API fake, você vai precisar do NodeJS; a versão utilizada foi a 20.12.2.
 
@@ -47,6 +66,53 @@ Para executar, abra um novo terminal e, dentro da pasta backend, execute:
 ```bash
 npm start
 ```
+
+### Frontend
+
+Abra o arquivo `index.html` em um navegador ou use uma extensão como Live Server no VS Code.
+
+### 🧪 Executar Testes
+
+Para executar os testes unitários:
+
+```bash
+# Instalar dependências (primeira vez)
+npm install
+
+# Executar testes
+npm test
+
+# Executar testes em modo watch
+npm run test:watch
+```
+
+**Resultado esperado:**
+
+```
+✓ 18 testes passando
+✓ 97.84% de cobertura
+```
+
+## 📚 Documentação dos Testes
+
+- [GUIA-TESTES.md](GUIA-TESTES.md) - Guia completo de testes
+- [README-TESTES.md](README-TESTES.md) - Documentação técnica dos testes
+
+## 🎯 Critérios de Avaliação (Clean Code)
+
+- ✅ **Legibilidade:** Código organizado, nomes claros e significativos
+- 🔄 **Estrutura:** Redução de repetições, modularização, menor complexidade
+- 🔄 **Comentários:** Apenas quando necessário, documentação apropriada
+- 🔄 **Boas práticas:** SOLID, DRY, KISS e YAGNI
+
+## 📊 Progresso do Trabalho
+
+- [x] Fase 1: Criação dos testes unitários
+- [ ] Fase 2: Refatoração aplicando Clean Code
+- [ ] Fase 3: Validação com os mesmos testes
+- [ ] Fase 4: Documentação das melhorias
+
+---
 
 Acesse o backend localmente em seu navegador:
 
