@@ -1,224 +1,224 @@
-var url = "http://localhost:3000";
-var lista;
-var msg;
-var form1;
-var btn1;
-var btn2;
-var campo1;
-var campo2;
-var campo3;
+const API_BASE_URL = "http://localhost:3000";
+let listaPensamentosElement;
+let mensagemVaziaElement;
+let formularioPensamento;
+let botaoSalvar;
+let botaoCancelar;
+let inputPensamentoId;
+let textareaPensamentoConteudo;
+let inputPensamentoAutoria;
 
-function init() {
+function inicializarAplicacao() {
   console.log("iniciando aplicação...");
-  lista = document.getElementById("lista-pensamentos");
-  msg = document.getElementById("mensagem-vazia");
-  form1 = document.getElementById("pensamento-form");
-  btn1 = document.getElementById("botao-salvar");
-  btn2 = document.getElementById("botao-cancelar");
-  campo1 = document.getElementById("pensamento-id");
-  campo2 = document.getElementById("pensamento-conteudo");
-  campo3 = document.getElementById("pensamento-autoria");
+  listaPensamentosElement = document.getElementById("lista-pensamentos");
+  mensagemVaziaElement = document.getElementById("mensagem-vazia");
+  formularioPensamento = document.getElementById("pensamento-form");
+  botaoSalvar = document.getElementById("botao-salvar");
+  botaoCancelar = document.getElementById("botao-cancelar");
+  inputPensamentoId = document.getElementById("pensamento-id");
+  textareaPensamentoConteudo = document.getElementById("pensamento-conteudo");
+  inputPensamentoAutoria = document.getElementById("pensamento-autoria");
 
   console.log("elementos carregados");
 
-  carregarTudo();
+  carregarPensamentos();
 
-  form1.addEventListener("submit", function (e) {
-    e.preventDefault();
+  formularioPensamento.addEventListener("submit", function (evento) {
+    evento.preventDefault();
     console.log("formulário submetido");
 
-    var id = campo1.value;
-    var conteudo = campo2.value;
-    var autoria = campo3.value;
+    const pensamentoId = inputPensamentoId.value;
+    const pensamentoConteudo = textareaPensamentoConteudo.value;
+    const pensamentoAutoria = inputPensamentoAutoria.value;
 
-    console.log("id:", id);
-    console.log("conteudo:", conteudo);
-    console.log("autoria:", autoria);
+    console.log("id:", pensamentoId);
+    console.log("conteudo:", pensamentoConteudo);
+    console.log("autoria:", pensamentoAutoria);
 
-    if (id != "") {
+    if (pensamentoId != "") {
       console.log("modo edição");
       axios
-        .put(url + "/pensamentos/" + id, {
-          id: id,
-          conteudo: conteudo,
-          autoria: autoria,
+        .put(API_BASE_URL + "/pensamentos/" + pensamentoId, {
+          id: pensamentoId,
+          conteudo: pensamentoConteudo,
+          autoria: pensamentoAutoria,
         })
-        .then(function (response) {
+        .then(function (resposta) {
           console.log("editado com sucesso");
-          console.log(response);
+          console.log(resposta);
           alert("Pensamento editado!");
-          campo1.value = "";
-          campo2.value = "";
-          campo3.value = "";
-          carregarTudo();
+          inputPensamentoId.value = "";
+          textareaPensamentoConteudo.value = "";
+          inputPensamentoAutoria.value = "";
+          carregarPensamentos();
         })
-        .catch(function (error) {
+        .catch(function (erro) {
           console.log("erro ao editar");
-          console.log(error);
+          console.log(erro);
           alert("Erro ao editar");
         });
     } else {
       console.log("modo criação");
       axios
-        .post(url + "/pensamentos", {
-          conteudo: conteudo,
-          autoria: autoria,
+        .post(API_BASE_URL + "/pensamentos", {
+          conteudo: pensamentoConteudo,
+          autoria: pensamentoAutoria,
         })
-        .then(function (response) {
+        .then(function (resposta) {
           console.log("criado com sucesso");
-          console.log(response);
+          console.log(resposta);
           alert("Pensamento adicionado!");
-          campo1.value = "";
-          campo2.value = "";
-          campo3.value = "";
-          carregarTudo();
+          inputPensamentoId.value = "";
+          textareaPensamentoConteudo.value = "";
+          inputPensamentoAutoria.value = "";
+          carregarPensamentos();
         })
-        .catch(function (error) {
+        .catch(function (erro) {
           console.log("erro ao criar");
-          console.log(error);
+          console.log(erro);
           alert("Erro ao criar pensamento");
         });
     }
   });
 
-  btn2.addEventListener("click", function () {
+  botaoCancelar.addEventListener("click", function () {
     console.log("cancelar clicado");
-    campo1.value = "";
-    campo2.value = "";
-    campo3.value = "";
+    inputPensamentoId.value = "";
+    textareaPensamentoConteudo.value = "";
+    inputPensamentoAutoria.value = "";
     console.log("formulário limpo");
   });
 }
 
-function carregarTudo() {
+function carregarPensamentos() {
   console.log("carregando pensamentos...");
   axios
-    .get(url + "/pensamentos")
-    .then(function (response) {
+    .get(API_BASE_URL + "/pensamentos")
+    .then(function (resposta) {
       console.log("pensamentos carregados");
-      console.log(response);
-      var data = response.data;
-      console.log("total:", data.length);
+      console.log(resposta);
+      const pensamentos = resposta.data;
+      console.log("total:", pensamentos.length);
 
-      lista.innerHTML = "";
+      listaPensamentosElement.innerHTML = "";
 
-      if (data.length == 0) {
+      if (pensamentos.length == 0) {
         console.log("lista vazia");
-        msg.style.display = "block";
+        mensagemVaziaElement.style.display = "block";
       } else {
         console.log("mostrando pensamentos");
-        msg.style.display = "none";
+        mensagemVaziaElement.style.display = "none";
 
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < pensamentos.length; i++) {
           console.log("adicionando pensamento", i);
-          var p = data[i];
+          const pensamento = pensamentos[i];
 
-          var li = document.createElement("li");
-          li.setAttribute("data-id", p.id);
-          li.classList.add("li-pensamento");
+          const itemLista = document.createElement("li");
+          itemLista.setAttribute("data-id", pensamento.id);
+          itemLista.classList.add("li-pensamento");
 
-          var img1 = document.createElement("img");
-          img1.src = "assets/imagens/aspas-azuis.png";
-          img1.alt = "Aspas azuis";
-          img1.classList.add("icone-aspas");
+          const iconeAspas = document.createElement("img");
+          iconeAspas.src = "assets/imagens/aspas-azuis.png";
+          iconeAspas.alt = "Aspas azuis";
+          iconeAspas.classList.add("icone-aspas");
 
-          var div1 = document.createElement("div");
-          div1.textContent = p.conteudo;
-          div1.classList.add("pensamento-conteudo");
+          const divConteudo = document.createElement("div");
+          divConteudo.textContent = pensamento.conteudo;
+          divConteudo.classList.add("pensamento-conteudo");
 
-          var div2 = document.createElement("div");
-          div2.textContent = p.autoria;
-          div2.classList.add("pensamento-autoria");
+          const divAutoria = document.createElement("div");
+          divAutoria.textContent = pensamento.autoria;
+          divAutoria.classList.add("pensamento-autoria");
 
-          var btn_edit = document.createElement("button");
-          btn_edit.classList.add("botao-editar");
+          const botaoEditar = document.createElement("button");
+          botaoEditar.classList.add("botao-editar");
 
-          (function (id_atual) {
-            btn_edit.onclick = function () {
-              console.log("editando pensamento", id_atual);
+          (function (pensamentoIdAtual) {
+            botaoEditar.onclick = function () {
+              console.log("editando pensamento", pensamentoIdAtual);
               document.querySelector("h2").scrollIntoView({ behavior: "smooth" });
 
               axios
-                .get(url + "/pensamentos/" + id_atual)
-                .then(function (response) {
+                .get(API_BASE_URL + "/pensamentos/" + pensamentoIdAtual)
+                .then(function (resposta) {
                   console.log("pensamento carregado para edição");
-                  console.log(response);
-                  var pensamento = response.data;
-                  campo1.value = pensamento.id;
-                  campo2.value = pensamento.conteudo;
-                  campo3.value = pensamento.autoria;
+                  console.log(resposta);
+                  const pensamentoParaEditar = resposta.data;
+                  inputPensamentoId.value = pensamentoParaEditar.id;
+                  textareaPensamentoConteudo.value = pensamentoParaEditar.conteudo;
+                  inputPensamentoAutoria.value = pensamentoParaEditar.autoria;
                   console.log("formulário preenchido");
                 })
-                .catch(function (error) {
+                .catch(function (erro) {
                   console.log("erro ao buscar pensamento");
-                  console.log(error);
+                  console.log(erro);
                   alert("Erro ao buscar pensamento");
                 });
             };
-          })(p.id);
+          })(pensamento.id);
 
-          var img_edit = document.createElement("img");
-          img_edit.src = "assets/imagens/icone-editar.png";
-          img_edit.alt = "Editar";
-          btn_edit.appendChild(img_edit);
+          const imagemEditar = document.createElement("img");
+          imagemEditar.src = "assets/imagens/icone-editar.png";
+          imagemEditar.alt = "Editar";
+          botaoEditar.appendChild(imagemEditar);
 
-          var btn_del = document.createElement("button");
-          btn_del.classList.add("botao-excluir");
+          const botaoExcluir = document.createElement("button");
+          botaoExcluir.classList.add("botao-excluir");
 
-          (function (id_atual) {
-            btn_del.onclick = function () {
-              console.log("excluindo pensamento", id_atual);
+          (function (pensamentoIdAtual) {
+            botaoExcluir.onclick = function () {
+              console.log("excluindo pensamento", pensamentoIdAtual);
               if (confirm("Tem certeza que deseja excluir?")) {
                 axios
-                  .delete(url + "/pensamentos/" + id_atual)
-                  .then(function (response) {
+                  .delete(API_BASE_URL + "/pensamentos/" + pensamentoIdAtual)
+                  .then(function (resposta) {
                     console.log("excluído com sucesso");
-                    console.log(response);
+                    console.log(resposta);
                     alert("Pensamento excluído!");
-                    carregarTudo();
+                    carregarPensamentos();
                   })
-                  .catch(function (error) {
+                  .catch(function (erro) {
                     console.log("erro ao excluir");
-                    console.log(error);
+                    console.log(erro);
                     alert("Erro ao excluir");
                   });
               } else {
                 console.log("exclusão cancelada");
               }
             };
-          })(p.id);
+          })(pensamento.id);
 
-          var img_del = document.createElement("img");
-          img_del.src = "assets/imagens/icone-excluir.png";
-          img_del.alt = "Excluir";
-          btn_del.appendChild(img_del);
+          const imagemExcluir = document.createElement("img");
+          imagemExcluir.src = "assets/imagens/icone-excluir.png";
+          imagemExcluir.alt = "Excluir";
+          botaoExcluir.appendChild(imagemExcluir);
 
-          var div_icones = document.createElement("div");
-          div_icones.classList.add("icones");
-          div_icones.appendChild(btn_edit);
-          div_icones.appendChild(btn_del);
+          const divIcones = document.createElement("div");
+          divIcones.classList.add("icones");
+          divIcones.appendChild(botaoEditar);
+          divIcones.appendChild(botaoExcluir);
 
-          li.appendChild(img1);
-          li.appendChild(div1);
-          li.appendChild(div2);
-          li.appendChild(div_icones);
+          itemLista.appendChild(iconeAspas);
+          itemLista.appendChild(divConteudo);
+          itemLista.appendChild(divAutoria);
+          itemLista.appendChild(divIcones);
 
-          lista.appendChild(li);
+          listaPensamentosElement.appendChild(itemLista);
           console.log("pensamento adicionado ao DOM");
         }
       }
 
       console.log("renderização completa");
     })
-    .catch(function (error) {
+    .catch(function (erro) {
       console.log("erro ao carregar pensamentos");
-      console.log(error);
+      console.log(erro);
       alert("Erro ao carregar pensamentos");
     });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM carregado");
-  init();
+  inicializarAplicacao();
   console.log("inicialização completa");
 });
