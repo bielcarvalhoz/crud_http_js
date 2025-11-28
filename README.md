@@ -101,16 +101,16 @@ npm run test:watch
 ## 🎯 Critérios de Avaliação (Clean Code)
 
 - ✅ **Legibilidade:** Código organizado, nomes claros e significativos
-- 🔄 **Estrutura:** Redução de repetições, modularização, menor complexidade
-- 🔄 **Comentários:** Apenas quando necessário, documentação apropriada
-- 🔄 **Boas práticas:** SOLID, DRY, KISS e YAGNI
+- ✅ **Estrutura:** Redução de repetições, modularização, menor complexidade
+- ✅ **Comentários:** Apenas quando necessário, documentação apropriada
+- ✅ **Boas práticas:** SOLID, DRY, KISS e YAGNI
 
 ## 📊 Progresso do Trabalho
 
 - [x] Fase 1: Criação dos testes unitários
-- [ ] Fase 2: Refatoração aplicando Clean Code
-- [ ] Fase 3: Validação com os mesmos testes
-- [ ] Fase 4: Documentação das melhorias
+- [x] Fase 2: Refatoração aplicando Clean Code
+- [x] Fase 3: Validação com os mesmos testes
+- [x] Fase 4: Documentação das melhorias
 
 ---
 
