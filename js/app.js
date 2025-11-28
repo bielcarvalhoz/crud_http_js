@@ -1,11 +1,24 @@
+/**
+ * CRUD de Pensamentos - Memoteca
+ *
+ * Aplicação para gerenciar pensamentos, citações e ideias.
+ * Utiliza JSON Server como backend e Axios para requisições HTTP.
+ */
+
+// Configuração da API
 const API_BASE_URL = "http://localhost:3000";
 const ENDPOINTS = {
   pensamentos: `${API_BASE_URL}/pensamentos`,
   pensamentoById: (id) => `${API_BASE_URL}/pensamentos/${id}`,
 };
 
+// Armazena referências aos elementos DOM para evitar múltiplas buscas
 let elementosDOM = {};
 
+/**
+ * Service responsável pela comunicação com a API.
+ * Abstrai as chamadas HTTP e centraliza a lógica de acesso aos dados.
+ */
 const PensamentoService = {
   buscarTodos() {
     return axios.get(ENDPOINTS.pensamentos);
@@ -28,6 +41,10 @@ const PensamentoService = {
   },
 };
 
+/**
+ * Helper para manipulação do formulário.
+ * Centraliza operações de leitura, escrita e limpeza dos campos.
+ */
 const FormularioHelper = {
   limpar() {
     elementosDOM.inputId.value = "";
@@ -49,11 +66,16 @@ const FormularioHelper = {
     elementosDOM.inputAutoria.value = pensamento.autoria;
   },
 
+  // Verifica se existe ID preenchido (indica modo de edição)
   estaEmModoEdicao() {
     return elementosDOM.inputId.value !== "";
   },
 };
 
+/**
+ * Helper para operações de interface do usuário.
+ * Gerencia alertas, visibilidade de elementos e navegação.
+ */
 const UIHelper = {
   exibirMensagem(mensagem) {
     alert(mensagem);
@@ -76,6 +98,10 @@ const UIHelper = {
   },
 };
 
+/**
+ * Inicializa a aplicação carregando elementos DOM,
+ * configurando event listeners e carregando dados iniciais.
+ */
 function inicializarAplicacao() {
   console.log("iniciando aplicação...");
 
@@ -87,6 +113,10 @@ function inicializarAplicacao() {
   console.log("aplicação inicializada com sucesso");
 }
 
+/**
+ * Carrega e armazena referências aos elementos DOM.
+ * Evita múltiplas buscas no DOM ao longo da execução.
+ */
 function carregarElementosDOM() {
   elementosDOM = {
     listaPensamentos: document.getElementById("lista-pensamentos"),
@@ -100,11 +130,18 @@ function carregarElementosDOM() {
   };
 }
 
+/**
+ * Configura os event listeners do formulário e botões.
+ */
 function configurarEventListeners() {
   elementosDOM.formulario.addEventListener("submit", manipularSubmissaoFormulario);
   elementosDOM.botaoCancelar.addEventListener("click", manipularCancelamento);
 }
 
+/**
+ * Processa o envio do formulário.
+ * Decide entre criar ou atualizar com base no modo de edição.
+ */
 function manipularSubmissaoFormulario(evento) {
   evento.preventDefault();
   console.log("formulário submetido");
@@ -123,6 +160,10 @@ function manipularSubmissaoFormulario(evento) {
   }
 }
 
+/**
+ * Cria um novo pensamento via API.
+ * @param {Object} dados - Dados do formulário (conteudo, autoria)
+ */
 function salvarNovoPensamento(dados) {
   const pensamento = {
     conteudo: dados.conteudo,
@@ -144,6 +185,10 @@ function salvarNovoPensamento(dados) {
     });
 }
 
+/**
+ * Atualiza um pensamento existente via API.
+ * @param {Object} dados - Dados do formulário (id, conteudo, autoria)
+ */
 function atualizarPensamento(dados) {
   const pensamento = {
     id: dados.id,
@@ -166,12 +211,18 @@ function atualizarPensamento(dados) {
     });
 }
 
+/**
+ * Manipula o clique no botão cancelar, limpando o formulário.
+ */
 function manipularCancelamento() {
   console.log("cancelar clicado");
   FormularioHelper.limpar();
   console.log("formulário limpo");
 }
 
+/**
+ * Carrega todos os pensamentos da API e renderiza na tela.
+ */
 function carregarPensamentos() {
   console.log("carregando pensamentos...");
   PensamentoService.buscarTodos()
@@ -188,6 +239,11 @@ function carregarPensamentos() {
     });
 }
 
+/**
+ * Renderiza a lista de pensamentos no DOM.
+ * Exibe mensagem vazia se não houver pensamentos.
+ * @param {Array} pensamentos - Array de objetos pensamento
+ */
 function renderizarListaPensamentos(pensamentos) {
   UIHelper.limparLista();
 
@@ -209,6 +265,11 @@ function renderizarListaPensamentos(pensamentos) {
   console.log("renderização completa");
 }
 
+/**
+ * Cria o elemento HTML completo de um pensamento.
+ * @param {Object} pensamento - Objeto com id, conteudo e autoria
+ * @returns {HTMLElement} Elemento li completo
+ */
 function criarElementoPensamento(pensamento) {
   const itemLista = document.createElement("li");
   itemLista.setAttribute("data-id", pensamento.id);
@@ -227,6 +288,10 @@ function criarElementoPensamento(pensamento) {
   return itemLista;
 }
 
+/**
+ * Cria o ícone de aspas decorativo.
+ * @returns {HTMLElement} Elemento img com ícone
+ */
 function criarIconeAspas() {
   const iconeAspas = document.createElement("img");
   iconeAspas.src = "assets/imagens/aspas-azuis.png";
@@ -235,6 +300,11 @@ function criarIconeAspas() {
   return iconeAspas;
 }
 
+/**
+ * Cria a div com o conteúdo do pensamento.
+ * @param {string} conteudo - Texto do pensamento
+ * @returns {HTMLElement} Elemento div com o conteúdo
+ */
 function criarDivConteudo(conteudo) {
   const divConteudo = document.createElement("div");
   divConteudo.textContent = conteudo;
@@ -242,6 +312,11 @@ function criarDivConteudo(conteudo) {
   return divConteudo;
 }
 
+/**
+ * Cria a div com a autoria do pensamento.
+ * @param {string} autoria - Autor ou fonte do pensamento
+ * @returns {HTMLElement} Elemento div com a autoria
+ */
 function criarDivAutoria(autoria) {
   const divAutoria = document.createElement("div");
   divAutoria.textContent = autoria;
@@ -249,6 +324,11 @@ function criarDivAutoria(autoria) {
   return divAutoria;
 }
 
+/**
+ * Cria a div contendo os botões de ação (editar e excluir).
+ * @param {string} pensamentoId - ID do pensamento
+ * @returns {HTMLElement} Elemento div com os botões
+ */
 function criarDivIcones(pensamentoId) {
   const divIcones = document.createElement("div");
   divIcones.classList.add("icones");
@@ -262,6 +342,11 @@ function criarDivIcones(pensamentoId) {
   return divIcones;
 }
 
+/**
+ * Cria o botão de editar com seu ícone e evento.
+ * @param {string} pensamentoId - ID do pensamento a ser editado
+ * @returns {HTMLElement} Elemento button configurado
+ */
 function criarBotaoEditar(pensamentoId) {
   const botaoEditar = document.createElement("button");
   botaoEditar.classList.add("botao-editar");
@@ -276,6 +361,11 @@ function criarBotaoEditar(pensamentoId) {
   return botaoEditar;
 }
 
+/**
+ * Carrega os dados de um pensamento para edição.
+ * Busca na API e preenche o formulário, fazendo scroll para ele.
+ * @param {string} pensamentoId - ID do pensamento a ser carregado
+ */
 function carregarPensamentoParaEdicao(pensamentoId) {
   console.log("editando pensamento", pensamentoId);
   UIHelper.scrollParaFormulario();
@@ -294,6 +384,11 @@ function carregarPensamentoParaEdicao(pensamentoId) {
     });
 }
 
+/**
+ * Cria o botão de excluir com seu ícone e evento.
+ * @param {string} pensamentoId - ID do pensamento a ser excluído
+ * @returns {HTMLElement} Elemento button configurado
+ */
 function criarBotaoExcluir(pensamentoId) {
   const botaoExcluir = document.createElement("button");
   botaoExcluir.classList.add("botao-excluir");
@@ -308,6 +403,10 @@ function criarBotaoExcluir(pensamentoId) {
   return botaoExcluir;
 }
 
+/**
+ * Solicita confirmação do usuário antes de excluir.
+ * @param {string} pensamentoId - ID do pensamento a ser excluído
+ */
 function confirmarExclusao(pensamentoId) {
   console.log("excluindo pensamento", pensamentoId);
   const confirmado = confirm("Tem certeza que deseja excluir?");
@@ -319,6 +418,10 @@ function confirmarExclusao(pensamentoId) {
   }
 }
 
+/**
+ * Exclui um pensamento via API.
+ * @param {string} pensamentoId - ID do pensamento a ser excluído
+ */
 function excluirPensamento(pensamentoId) {
   PensamentoService.excluir(pensamentoId)
     .then((resposta) => {
@@ -334,10 +437,14 @@ function excluirPensamento(pensamentoId) {
     });
 }
 
+/**
+ * Função de inicialização chamada quando o DOM é carregado.
+ */
 function iniciarAplicacao() {
   console.log("DOM carregado");
   inicializarAplicacao();
   console.log("inicialização completa");
 }
 
+// Aguarda o DOM estar pronto antes de inicializar
 document.addEventListener("DOMContentLoaded", iniciarAplicacao);

@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CRUD de Pensamentos</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <!-- Biblioteca Axios para requisições HTTP -->
     <script defer src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script defer src="js/app.js"></script>
   </head>
   <body>
+    <!-- Cabeçalho com logo e apresentação -->
     <header>
       <div class="conteudo-cabecalho">
         <div class="logo">
-          <img src="assets/imagens/logo.png" alt="" />
+          <img src="assets/imagens/logo.png" alt="Logo Memoteca" />
           <h1>
             Trechos de músicas,<br />
             citações de livros e <br />
@@ -23,34 +25,49 @@
           </h1>
         </div>
         <div class="imagem-cabecalho">
-          <img src="assets/imagens/computador-cabecalho.png" alt="" />
+          <img src="assets/imagens/computador-cabecalho.png" alt="Ilustração de computador" />
         </div>
       </div>
     </header>
+
     <main class="background-overlay">
       <div class="overlay"></div>
       <div class="overlay overlay-color"></div>
+
       <h2>Adicione um pensamento novo:</h2>
+
+      <!-- Formulário de cadastro/edição de pensamentos -->
       <section id="form-container">
         <form id="pensamento-form">
+          <!-- Campo oculto para ID - usado no modo de edição -->
           <input type="hidden" id="pensamento-id" />
+
           <label for="pensamento-conteudo">Pensamento</label>
           <textarea id="pensamento-conteudo" placeholder="Digite seu pensamento" required></textarea>
-          <label for="pensamento-autoria"> Autoria ou Fonte </label>
+
+          <label for="pensamento-autoria">Autoria ou Fonte</label>
           <input type="text" id="pensamento-autoria" placeholder="Insira a autoria ou fonte" required />
+
           <div class="form-botoes">
             <button type="submit" id="botao-salvar">Adicionar</button>
             <button type="button" id="botao-cancelar">Cancelar</button>
           </div>
         </form>
       </section>
+
       <span></span>
+
+      <!-- Lista de pensamentos cadastrados -->
       <section id="lista-pensamentos-container">
         <h3>Meu Mural</h3>
+
+        <!-- Mensagem exibida quando não há pensamentos -->
         <div id="mensagem-vazia" class="mensagem-vazia">
           <img src="assets/imagens/lista-vazia.png" alt="Nenhum pensamento disponível" />
           <p>Nada por aqui ainda, que tal compartilhar alguma ideia?</p>
         </div>
+
+        <!-- Lista preenchida dinamicamente via JavaScript -->
         <ul id="lista-pensamentos"></ul>
       </section>
     </main>
