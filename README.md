@@ -17,7 +17,6 @@ Este repositório é parte de um trabalho da faculdade focado em **Clean Code** 
 
 - ✅ **18 testes criados e passando**
 - ✅ **97.84% de cobertura de código**
-- ✅ **Pronto para refatoração**
 
 Para detalhes completos sobre os testes, veja [GUIA-TESTES.md](GUIA-TESTES.md)
 
